@@ -1,8 +1,5 @@
-const { debug, error } = require("@actions/core");
-const {
-    context,
-    getOctokit,
-} = require("@actions/github");
+import { debug, error } from "@actions/core";
+import { context, getOctokit } from "@actions/github";
 
 class PullRequestChecker {
     constructor(repoToken) {
@@ -22,8 +19,13 @@ class PullRequestChecker {
         debug(`${commits.length} commit(s) in the pull request`);
 
         let blockedCommits = 0;
-        for (const { commit: { message }, sha, url } of commits) {
-            const isAutosquash = message.startsWith("fixup!") || message.startsWith("squash!");
+        for (const {
+            commit: { message },
+            sha,
+            url,
+        } of commits) {
+            const isAutosquash =
+                message.startsWith("fixup!") || message.startsWith("squash!");
 
             if (isAutosquash) {
                 error(`Commit ${sha} is an autosquash commit: ${url}`);
@@ -38,4 +40,4 @@ class PullRequestChecker {
     }
 }
 
-module.exports = PullRequestChecker;
+export default PullRequestChecker;

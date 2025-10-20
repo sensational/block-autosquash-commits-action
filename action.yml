@@ -3,13 +3,12 @@ description: "Prevent merging pull requests that contain commit messages prefixe
 author: "xt0rted"
 branding:
   icon: "alert-circle"
-  color: "Red"
+  color: "red"
 
 inputs:
   repo-token:
     description: "Token for the repo. Can be passed in using {{ secrets.GITHUB_TOKEN }}"
     required: true
-
 runs:
-  using: "docker"
-  image: "Dockerfile"
+  using: "node24"
+  main: "dist/index.js"
